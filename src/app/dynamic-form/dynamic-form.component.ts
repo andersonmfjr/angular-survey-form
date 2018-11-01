@@ -4,8 +4,6 @@ import { FormGroup } from '@angular/forms';
 import { QuestionBase } from '../models/question-base';
 import { QuestionControlService } from '../services/question-control.service';
 
-import mostVisible from 'most-visible';
-
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
@@ -26,7 +24,6 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.qcs.toFormGroup(this.questions);
-    this.instaceMostVisible = new mostVisible('.question-container');
     this.lenOfQuestions = this.questions.length;
   }
 
