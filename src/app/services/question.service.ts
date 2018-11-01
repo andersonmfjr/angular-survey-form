@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DropdownQuestion } from '../models/question-dropdown';
 import { QuestionBase } from '../models/question-base';
 import { TextareaQuestion } from '../models/question-textarea';
+import { RadioQuestion } from '../models/question-radio';
 
 @Injectable()
 export class QuestionService {
@@ -20,6 +21,23 @@ export class QuestionService {
           { key: 'unproven', value: 'Unproven' }
         ],
         order: 3
+      }),
+
+      new RadioQuestion({
+        key: 'solid',
+        label: 'Radio question',
+        options: {
+          firstcolumn: [
+            { key: 'radio1', name: 'color', value: 'red', label: 'Red' },
+            { key: 'radio2', name: 'color', value: 'green', label: 'Green' },
+            { key: 'radio3', name: 'color', value: 'blue', label: 'Blue' }
+          ],
+          secondcolumn: [
+            { key: 'radio4', name: 'color', value: 'yellow', label: 'Yellow' },
+            { key: 'radio5', name: 'color', value: 'white', label: 'White' }
+          ]
+        },
+        order: 4
       }),
 
       new TextareaQuestion({

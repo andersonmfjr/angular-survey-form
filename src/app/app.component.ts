@@ -47,6 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   scroll = (): void => {
+    console.log('scroll');
     const element = mostVisible('.question-container');
     return element.id;
   }
