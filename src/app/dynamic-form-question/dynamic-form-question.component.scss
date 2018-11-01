@@ -1,4 +1,5 @@
 app-question {
+  // Estilos para as questões do tipo radio
   .alternatives {
     display: flex;
     flex-direction: row;
@@ -42,7 +43,7 @@ app-question {
 
       &:hover {
         background-color: $green;
-        border-radius: 1rem;
+        border-radius: $border-radius;
       }
     }
 
@@ -66,7 +67,40 @@ app-question {
       visibility: hidden;
     }
   }
+  // Fim do estilo para as questões do tipo radio
 
+  // Estilo para questões do tipo select
+  select {
+    border-radius: $border-radius;
+    font-size: 1rem;
+    background-color: white;
+    border-color: $border-color;
+    width: 70%;
+    color: inherit;
+    padding: 0.6rem 0.8rem;
+    line-height: normal;
+    transition: border-color 0.2s ease, outline 0.2s ease;
+
+    &:focus {
+      outline-color: transparent;
+    }
+  }
+  // Fim do estilo para as questõs do tipo select
+
+  // Estilo para questões do tipo textarea
+  textarea {
+    border-color: $border-color;
+    border-radius: $border-radius;
+    width: 100%;
+    padding: 0.5rem;
+
+    &:focus {
+      outline-color: transparent;
+    }
+  }
+  // Fim do estilo para questões do tipo textarea
+
+  // Estilos gerais
   .question-container {
     margin-top: 7rem;
     margin-bottom: 5rem;
@@ -78,4 +112,5 @@ app-question {
   .opacity {
     opacity: 0.3;
   }
+  // Fim estilos gerais
 }

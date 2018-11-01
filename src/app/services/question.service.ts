@@ -26,6 +26,7 @@ export class QuestionService {
       new RadioQuestion({
         key: 'solid',
         label: 'Radio question',
+        required: true,
         options: {
           firstcolumn: [
             { key: 'radio1', name: 'color', value: 'red', label: 'Red' },
