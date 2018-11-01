@@ -110,7 +110,7 @@ app-question {
 
   button {
     height: 100%;
-    min-width: 100px;
+    min-width: 5rem;
     float: right;
     color: white;
     padding: 0.5rem 1rem;
@@ -119,7 +119,6 @@ app-question {
     border-radius: $border-radius;
     font-size: 1rem;
     opacity: 0.9;
-    margin-bottom: 20rem;
 
     &:hover {
       opacity: 1;

@@ -3,7 +3,7 @@ app-dynamic-form {
   justify-content: center;
 
   form {
-    max-width: 750px;
+    max-width: 45rem;
     font-size: 18px;
     font-weight: lighter;
     line-height: 36px;
@@ -15,7 +15,7 @@ app-dynamic-form {
 
     button {
       height: 100%;
-      min-width: 100px;
+      min-width: 10rem;
       text-transform: uppercase;
       color: white;
       padding: 1rem 2rem;
@@ -29,6 +29,15 @@ app-dynamic-form {
       &:hover {
         opacity: 1;
         box-shadow: 0 0 10px #2683cc;
+      }
+
+      &:disabled {
+        opacity: 0.9;
+        background-color: $border-color;
+
+        &:hover {
+          box-shadow: none;
+        }
       }
     }
   }

@@ -23,7 +23,7 @@
 
     <div *ngSwitchCase="'textarea'">
       <textarea rows="5" cols="50" [formControlName]="question.key" [id]="question.key"></textarea>
-      <button type="button" (click)="scrollTo(question.order)">
+      <button *ngIf="question.order !== lenOfQuestions" type="button" (click)="scrollTo(question.order)">
         Ok
       </button>
     </div>
