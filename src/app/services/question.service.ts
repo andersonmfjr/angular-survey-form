@@ -131,19 +131,19 @@ export class QuestionService {
         options: {
           firstcolumn: [
             {
-              key: 'radio1',
+              key: 'radio6',
               name: 'conteudoclaro',
               value: '5',
               label: 'Extremamente claro'
             },
             {
-              key: 'radio2',
+              key: 'radio7',
               name: 'conteudoclaro',
               value: '4',
               label: 'Muito claro'
             },
             {
-              key: 'radio3',
+              key: 'radio8',
               name: 'conteudoclaro',
               value: '3',
               label: 'Um pouco'
@@ -151,13 +151,13 @@ export class QuestionService {
           ],
           secondcolumn: [
             {
-              key: 'radio4',
+              key: 'radio9',
               name: 'conteudoclaro',
               value: '2',
               label: 'Nem tanto'
             },
             {
-              key: 'radio5',
+              key: 'radio10',
               name: 'conteudoclaro',
               value: '1',
               label: 'De forma alguma'
@@ -172,7 +172,7 @@ export class QuestionService {
         label:
           'Tem algum outro comentário a acrescentar sobre o professor ou sobre a matéria? Críticas, comentários, dicas?',
         value: '',
-        required: true,
+        required: false,
         order: 6
       })
     ];
