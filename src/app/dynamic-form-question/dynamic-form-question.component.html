@@ -1,4 +1,4 @@
-<div [formGroup]="form" [id]="'questao'+question.order" class="question-container" [ngClass]="{'opacity': 'questao'+question.order !== divMostVisible()}">
+<div [formGroup]="form" [id]="'questao'+question.order" class="question-container">
   <h3 [attr.for]="question.key">{{question.order}}. {{question.label}}</h3>
 
   <div [ngSwitch]="question.controlType">
@@ -22,7 +22,7 @@
     <!-- <input *ngSwitchCase="'textbox'" [formControlName]="question.key" [id]="question.key" [type]="question.type"> -->
 
     <div *ngSwitchCase="'textarea'">
-      <textarea rows="5" cols="60" [formControlName]="question.key" [id]="question.key"></textarea>
+      <textarea rows="5" cols="50" [formControlName]="question.key" [id]="question.key"></textarea>
       <button type="button" (click)="scrollTo(question.order)">
         Ok
       </button>

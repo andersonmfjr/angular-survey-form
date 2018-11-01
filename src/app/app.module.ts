@@ -7,12 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { DynamicFormQuestionComponent } from './dynamic-form-question/dynamic-form-question.component';
+import { SurveyComponent } from './survey/survey.component';
+import { HintsComponent } from './hints/hints.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DynamicFormComponent,
-    DynamicFormQuestionComponent
+    DynamicFormQuestionComponent,
+    SurveyComponent,
+    HintsComponent
   ],
   imports: [
     BrowserModule,
