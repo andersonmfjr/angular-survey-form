@@ -1,18 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { DynamicFormQuestionComponent } from './dynamic-form-question/dynamic-form-question.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DynamicFormComponent,
+    DynamicFormQuestionComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    NgxPageScrollModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
