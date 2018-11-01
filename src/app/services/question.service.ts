@@ -14,6 +14,7 @@ export class QuestionService {
       new DropdownQuestion({
         key: 'brave',
         label: 'Bravery Rating',
+        value: '',
         options: [
           { key: 'solid', value: 'Solid' },
           { key: 'great', value: 'Great' },
@@ -44,7 +45,7 @@ export class QuestionService {
       new TextareaQuestion({
         key: 'firstName',
         label: 'First name',
-        value: 'Bombasto',
+        value: '',
         required: true,
         order: 1
       }),
