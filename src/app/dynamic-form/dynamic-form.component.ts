@@ -32,6 +32,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    console.log('submit chamado');
     this.payLoad = JSON.stringify(this.form.value);
   }
 

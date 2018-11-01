@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import {
+  ScrollToService,
+  ScrollToConfigOptions
+} from '@nicky-lenaers/ngx-scroll-to';
 
 import { QuestionBase } from '../models/question-base';
 
@@ -15,7 +19,20 @@ export class DynamicFormQuestionComponent {
   @Input()
   divMostVisible: any;
 
+  constructor(private _scrollToService: ScrollToService) {}
+
   get isValid() {
     return this.form.controls[this.question.key].valid;
+  }
+
+  public scrollTo() {
+    const config: ScrollToConfigOptions = {
+      duration: 650,
+      target: 'questao2',
+      easing: 'easeOutQuad',
+      offset: -200
+    };
+
+    this._scrollToService.scrollTo(config);
   }
 }

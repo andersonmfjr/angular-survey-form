@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { NgxPageScrollModule } from 'ngx-page-scroll';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +18,7 @@ import { DynamicFormQuestionComponent } from './dynamic-form-question/dynamic-fo
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    NgxPageScrollModule
+    ScrollToModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

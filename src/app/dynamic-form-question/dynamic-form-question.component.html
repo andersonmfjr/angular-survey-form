@@ -4,7 +4,7 @@
   <div [ngSwitch]="question.controlType">
 
     <div class="alternatives" *ngSwitchCase="'radio'">
-      <div class="first-column">
+      <div class="first-column" (click)="scrollTo()">
         <div class="inputGroup" *ngFor="let opt of question.options.firstcolumn">
           <input [formControlName]="question.key" [id]="opt.key" [name]="opt.name" [value]="opt.value" [type]="question.controlType" />
           <label [for]="opt.key">{{opt.label}}</label>

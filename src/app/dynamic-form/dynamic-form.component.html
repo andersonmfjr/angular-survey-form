@@ -1,5 +1,5 @@
 <div>
-  <form (ngSubmit)="onSubmit()" [formGroup]="form" #containerForm>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
 
     <div *ngFor="let question of questions">
       <app-question [question]="question" [divMostVisible]="divMostVisible" [form]="form">
