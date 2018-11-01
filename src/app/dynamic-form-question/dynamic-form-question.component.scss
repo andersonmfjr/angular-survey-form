@@ -102,15 +102,14 @@ app-question {
 
   // Estilos gerais
   .question-container {
-    margin-top: 7rem;
-    margin-bottom: 5rem;
+    height: 50vh;
     h3 {
       color: $green;
     }
   }
 
   .opacity {
-    opacity: 0.3;
+    opacity: 0.5;
   }
   // Fim estilos gerais
 }

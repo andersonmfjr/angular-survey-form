@@ -12,6 +12,9 @@ export class DynamicFormQuestionComponent {
   question: QuestionBase<any>;
   @Input()
   form: FormGroup;
+  @Input()
+  divMostVisible: any;
+
   get isValid() {
     return this.form.controls[this.question.key].valid;
   }

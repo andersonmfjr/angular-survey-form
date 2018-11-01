@@ -9,10 +9,15 @@ import { RadioQuestion } from '../models/question-radio';
 export class QuestionService {
   // TODO: get from a remote source of question metadata
   // TODO: make asynchronous
+  /*getQuestions(): Promise<QuestionBase<any>[]> {
+    return new Promise(resolve => {
+      resolve(this.getQuestionsOriginal());
+    });
+  }*/
   getQuestions() {
     const questions: QuestionBase<any>[] = [
       new DropdownQuestion({
-        key: 'brave',
+        key: 'rating',
         label: 'Bravery Rating',
         value: '',
         options: [
@@ -21,11 +26,12 @@ export class QuestionService {
           { key: 'good', value: 'Good' },
           { key: 'unproven', value: 'Unproven' }
         ],
+        divId: 'questao3',
         order: 3
       }),
 
       new RadioQuestion({
-        key: 'solid',
+        key: 'color',
         label: 'Radio question',
         required: true,
         options: {
@@ -39,21 +45,24 @@ export class QuestionService {
             { key: 'radio5', name: 'color', value: 'white', label: 'White' }
           ]
         },
-        order: 4
-      }),
-
-      new TextareaQuestion({
-        key: 'firstName',
-        label: 'First name',
-        value: '',
-        required: true,
+        divId: 'questao1',
         order: 1
       }),
 
       new TextareaQuestion({
-        key: 'emailAddress',
+        key: 'name',
+        label: 'First name',
+        value: '',
+        required: true,
+        divId: 'questao4',
+        order: 4
+      }),
+
+      new TextareaQuestion({
+        key: 'email',
         label: 'Email',
         type: 'email',
+        divId: 'questao2',
         order: 2
       })
     ];

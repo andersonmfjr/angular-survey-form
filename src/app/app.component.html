@@ -74,7 +74,10 @@
 
 </form> -->
 
+<nav style="background-color: #51c341; width: 100%; height: 80px; margin-top: 0; margin-bottom: 9rem;">
+  <div style="color: white; font-size: 26px; text-align: center;">Pesquisa de avaliação de curso</div>
+</nav>
+
 <div>
-  <h2>Job Application for Heroes</h2>
-  <app-dynamic-form [questions]="questions"></app-dynamic-form>
+  <app-dynamic-form *ngIf="questions" [questions]="questions"></app-dynamic-form>
 </div>
