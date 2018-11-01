@@ -111,5 +111,24 @@ app-question {
   .opacity {
     opacity: 0.5;
   }
+
+  button {
+    height: 100%;
+    min-width: 100px;
+    float: right;
+    color: white;
+    padding: 0.5rem 1rem;
+    background-color: $green;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: $border-radius;
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 20rem;
+
+    &:hover {
+      opacity: 1;
+      box-shadow: 0 0 10px #2683cc;
+    }
+  }
   // Fim estilos gerais
 }

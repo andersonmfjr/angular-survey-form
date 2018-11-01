@@ -61,7 +61,7 @@ export class QuestionService {
       new TextareaQuestion({
         key: 'email',
         label: 'Email',
-        type: 'email',
+        value: '',
         divId: 'questao2',
         order: 2
       })

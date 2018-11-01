@@ -1,17 +1,17 @@
-<div [formGroup]="form" [id]="question.divId" class="question-container" [ngClass]="{'opacity': question.divId !== divMostVisible()}">
+<div [formGroup]="form" [id]="'questao'+question.order" class="question-container" [ngClass]="{'opacity': 'questao'+question.order !== divMostVisible()}">
   <h3 [attr.for]="question.key">{{question.order}}. {{question.label}}</h3>
 
   <div [ngSwitch]="question.controlType">
 
     <div class="alternatives" *ngSwitchCase="'radio'">
-      <div class="first-column" (click)="scrollTo()">
+      <div class="first-column" (click)="scrollTo(question.order)">
         <div class="inputGroup" *ngFor="let opt of question.options.firstcolumn">
           <input [formControlName]="question.key" [id]="opt.key" [name]="opt.name" [value]="opt.value" [type]="question.controlType" />
           <label [for]="opt.key">{{opt.label}}</label>
         </div>
       </div>
 
-      <div class="second-column">
+      <div class="second-column" (click)="scrollTo(question.order)">
         <div class="inputGroup" *ngFor="let opt of question.options.secondcolumn">
           <input [formControlName]="question.key" [id]="opt.key" [name]="opt.name" [value]="opt.value" [type]="question.controlType" />
           <label [for]="opt.key">{{opt.label}}</label>
@@ -21,11 +21,18 @@
 
     <!-- <input *ngSwitchCase="'textbox'" [formControlName]="question.key" [id]="question.key" [type]="question.type"> -->
 
-    <textarea rows="4" cols="50" *ngSwitchCase="'textarea'" [formControlName]="question.key" [id]="question.key"></textarea>
+    <div *ngSwitchCase="'textarea'">
+      <textarea rows="5" cols="60" [formControlName]="question.key" [id]="question.key"></textarea>
+      <button type="button" (click)="scrollTo(question.order)">
+        Ok
+      </button>
+    </div>
 
-    <select [id]="question.key" class="minimal" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
-      <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
-    </select>
+    <div *ngSwitchCase="'dropdown'">
+      <select (change)="scrollTo(question.order)" [id]=" question.key" class="minimal" [formControlName]="question.key">
+        <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+      </select>
+    </div>
 
   </div>
 

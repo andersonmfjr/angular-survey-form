@@ -18,6 +18,8 @@ export class DynamicFormQuestionComponent {
   form: FormGroup;
   @Input()
   divMostVisible: any;
+  @Input()
+  lenOfQuestions: number;
 
   constructor(private _scrollToService: ScrollToService) {}
 
@@ -25,14 +27,19 @@ export class DynamicFormQuestionComponent {
     return this.form.controls[this.question.key].valid;
   }
 
-  public scrollTo() {
+  public scrollTo(questionId) {
+    const nextNumber = +questionId + 1;
+    const nextTarget = `questao${nextNumber}`;
+
     const config: ScrollToConfigOptions = {
       duration: 650,
-      target: 'questao2',
+      target: nextTarget,
       easing: 'easeOutQuad',
       offset: -200
     };
 
-    this._scrollToService.scrollTo(config);
+    if (nextNumber <= this.lenOfQuestions) {
+      this._scrollToService.scrollTo(config);
+    }
   }
 }
