@@ -4,9 +4,8 @@ app-dynamic-form {
 
   form {
     max-width: 45rem;
-    font-size: 18px;
-    font-weight: lighter;
-    line-height: 36px;
+    font-size: 1rem;
+    line-height: 2rem;
   }
 
   .form-submit {
@@ -48,5 +47,22 @@ app-dynamic-form {
     width: 15rem;
     display: block;
     margin: 0 auto 18.5px auto;
+  }
+
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: black;
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .progess {
+      color: white;
+    }
   }
 }
