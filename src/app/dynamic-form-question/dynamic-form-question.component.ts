@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
   ScrollToService,
@@ -21,10 +21,17 @@ export class DynamicFormQuestionComponent {
   @Input()
   lenOfQuestions: number;
 
+  @Output()
+  formValues = new EventEmitter();
+
   constructor(private _scrollToService: ScrollToService) {}
 
   get isValid() {
     return this.form.controls[this.question.key].valid;
+  }
+
+  qtQuestions() {
+    this.formValues.emit(this.form.value);
   }
 
   public scrollTo(questionId) {

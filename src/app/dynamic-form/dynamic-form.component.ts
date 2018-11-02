@@ -16,9 +16,8 @@ export class DynamicFormComponent implements OnInit {
   form: FormGroup;
   payLoad = '';
 
-  instaceMostVisible: any;
-
   lenOfQuestions: number;
+  questionsAnswered = 0;
 
   constructor(private qcs: QuestionControlService) {}
 
@@ -30,5 +29,15 @@ export class DynamicFormComponent implements OnInit {
   onSubmit() {
     console.log('submit chamado');
     this.payLoad = JSON.stringify(this.form.value);
+  }
+
+  receiverQtQuestions(values) {
+    let qtd = 0;
+    for (const [key, val] of Object.entries(values)) {
+      if (val) {
+        qtd = qtd + 1;
+      }
+    }
+    this.questionsAnswered = qtd;
   }
 }
