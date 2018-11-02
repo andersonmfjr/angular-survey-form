@@ -4,8 +4,7 @@ import { QuestionService } from './services/question.service';
 @Component({
   selector: 'app-root',
   providers: [QuestionService],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   questions: any[];

@@ -72,6 +72,7 @@ app-question {
   // Estilo para questões do tipo select
   .ng-select.custom {
     .ng-select-container {
+      color: black;
       height: 2rem;
       background-color: white;
       border: 1px solid $border-color;
@@ -86,6 +87,8 @@ app-question {
   textarea {
     border-color: $border-color;
     border-radius: $border-radius;
+    background-color: white;
+    color: black;
     width: 100%;
     padding: 0.5rem;
 
