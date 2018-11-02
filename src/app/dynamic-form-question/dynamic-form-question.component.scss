@@ -70,19 +70,14 @@ app-question {
   // Fim do estilo para as questões do tipo radio
 
   // Estilo para questões do tipo select
-  select {
-    border-radius: $border-radius;
-    font-size: 1rem;
-    background-color: white;
-    border-color: $border-color;
-    width: 70%;
-    color: inherit;
-    padding: 0.6rem 0.8rem;
-    line-height: normal;
-    transition: border-color 0.2s ease, outline 0.2s ease;
-
-    &:focus {
-      outline-color: transparent;
+  .ng-select.custom {
+    .ng-select-container {
+      height: 2rem;
+      background-color: white;
+      border: 1px solid $border-color;
+      .ng-value-container {
+        color: black;
+      }
     }
   }
   // Fim do estilo para as questõs do tipo select

@@ -1,15 +1,16 @@
-@import url('https://fonts.googleapis.com/css?family=Gentium+Basic');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300');
 $green: #51c341;
 $gray: #333e48;
 $border-color: #adadad;
 $border-radius: 0.4rem;
 
+@import '~@ng-select/ng-select/themes/default.theme.css';
 @import 'app/dynamic-form/dynamic-form.component';
 @import 'app/dynamic-form-question/dynamic-form-question.component';
 
 body {
   background-color: #fff;
-  font-family: 'Gentium Basic', serif;
+  font-family: 'Montserrat', sans-serif;
   margin: 0;
 }
 

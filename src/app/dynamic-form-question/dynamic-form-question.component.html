@@ -35,7 +35,13 @@
     </div> -->
 
     <div *ngSwitchCase="'dropdown'">
-      <ng-select [searchable]="true" [id]=" question.key" [formControlName]="question.key">
+      <ng-select (change)="scrollTo(question.order)" class="custom" [searchable]="true" [id]="question.key"
+        [formControlName]="question.key">
+        <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
+          <div class="ng-option disabled">
+            Sem itens para sua busca, por favor tente outros termos
+          </div>
+        </ng-template>
         <ng-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</ng-option>
       </ng-select>
     </div>

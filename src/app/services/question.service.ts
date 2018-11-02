@@ -69,7 +69,7 @@ export class QuestionService {
       }),
 
       new DropdownQuestion({
-        key: 'materia',
+        key: 'professor',
         label: 'Selecione o professor:',
         value: '',
         required: true,
