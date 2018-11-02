@@ -5,7 +5,7 @@ import {
   ScrollToConfigOptions
 } from '@nicky-lenaers/ngx-scroll-to';
 
-import { QuestionBase } from '../models/question-base';
+import { QuestionBase } from '../../models/question-base';
 
 @Component({
   selector: 'app-question',

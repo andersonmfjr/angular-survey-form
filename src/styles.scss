@@ -6,9 +6,10 @@ $border-radius: 0.4rem;
 
 @import '~@ng-select/ng-select/themes/default.theme.css';
 @import 'app/app.component';
-@import 'app/hints/hints.component';
-@import 'app/dynamic-form/dynamic-form.component';
-@import 'app/dynamic-form-question/dynamic-form-question.component';
+@import 'app/pages/hints/hints.component';
+@import 'app/pages/thanks/thanks.component';
+@import 'app/components/dynamic-form/dynamic-form.component';
+@import 'app/components/dynamic-form-question/dynamic-form-question.component';
 
 body {
   background-color: #fff;

@@ -6,14 +6,16 @@
     <div class="alternatives" *ngSwitchCase="'radio'">
       <div class="first-column" (click)="scrollTo(question.order)">
         <div class="inputGroup" *ngFor="let opt of question.options.firstcolumn">
-          <input (change)="qtQuestions()" [formControlName]="question.key" [id]="opt.key" [name]="opt.name" [value]="opt.value" [type]="question.controlType" />
+          <input (change)="qtQuestions()" [formControlName]="question.key" [id]="opt.key" [name]="opt.name" [value]="opt.value"
+            [type]="question.controlType" />
           <label [for]="opt.key">{{opt.label}}</label>
         </div>
       </div>
 
       <div class="second-column" (click)="scrollTo(question.order)">
         <div class="inputGroup" *ngFor="let opt of question.options.secondcolumn">
-          <input (change)="qtQuestions()" [formControlName]="question.key" [id]="opt.key" [name]="opt.name" [value]="opt.value" [type]="question.controlType" />
+          <input (change)="qtQuestions()" [formControlName]="question.key" [id]="opt.key" [name]="opt.name" [value]="opt.value"
+            [type]="question.controlType" />
           <label [for]="opt.key">{{opt.label}}</label>
         </div>
       </div>
@@ -22,7 +24,7 @@
     <!-- <input *ngSwitchCase="'textbox'" [formControlName]="question.key" [id]="question.key" [type]="question.type"> -->
 
     <div *ngSwitchCase="'textarea'">
-      <textarea (change)="qtQuestions()" rows="5" cols="50" [formControlName]="question.key" [id]="question.key"></textarea>
+      <textarea (change)="qtQuestions()" rows="8" cols="50" [formControlName]="question.key" [id]="question.key"></textarea>
       <button *ngIf="question.order !== lenOfQuestions" type="button" (click)="scrollTo(question.order)">
         Ok
       </button>
@@ -35,8 +37,8 @@
     </div> -->
 
     <div *ngSwitchCase="'dropdown'">
-      <ng-select [clearable]="false" clearOnBackspace="false" (change)="scrollTo(question.order); qtQuestions()" class="custom" [searchable]="true" [id]="question.key"
-        [formControlName]="question.key">
+      <ng-select [clearable]="false" clearOnBackspace="false" (change)="scrollTo(question.order); qtQuestions()" class="custom"
+        [searchable]="true" [id]="question.key" [formControlName]="question.key">
         <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
           <div class="ng-option disabled">
             Sem itens para sua busca, por favor tente outros termos

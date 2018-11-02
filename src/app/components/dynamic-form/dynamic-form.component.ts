@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { QuestionBase } from '../models/question-base';
-import { QuestionControlService } from '../services/question-control.service';
+import { QuestionBase } from '../../models/question-base';
+import { QuestionControlService } from '../../services/question-control.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -19,15 +20,16 @@ export class DynamicFormComponent implements OnInit {
   lenOfQuestions: number;
   questionsAnswered = 0;
 
-  constructor(private qcs: QuestionControlService) {}
+  constructor(private _qcs: QuestionControlService, private _router: Router) {}
 
   ngOnInit() {
-    this.form = this.qcs.toFormGroup(this.questions);
+    this.form = this._qcs.toFormGroup(this.questions);
     this.lenOfQuestions = this.questions.length;
   }
 
   onSubmit() {
     console.log('submit chamado');
+    this._router.navigate(['/agradecimento']);
     this.payLoad = JSON.stringify(this.form.value);
   }
 
