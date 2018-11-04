@@ -6,7 +6,7 @@ app-hints {
     margin-left: 1rem;
     margin-right: 1rem;
     text-align: justify;
-    margin-top: 5rem;
+    margin-top: 3rem;
 
     .content {
       display: flex;
@@ -15,24 +15,34 @@ app-hints {
       max-width: 40rem;
       margin-bottom: 5rem;
     }
-  }
 
-  button {
-    height: 100%;
-    width: 20rem;
-    text-transform: uppercase;
-    color: white;
-    padding: 1rem 2rem;
-    background-color: $green;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: $border-radius;
-    font-size: 1rem;
-    opacity: 0.9;
-    margin-top: 5rem;
+    h2 {
+      color: #f16461;
+    }
 
-    &:hover {
-      opacity: 1;
-      box-shadow: 0 0 10px #2683cc;
+    button {
+      height: 100%;
+      width: 20rem;
+      text-transform: uppercase;
+      color: white;
+      padding: 1rem 2rem;
+      background-color: $green;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: $border-radius;
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-top: 3rem;
+
+      &:hover {
+        opacity: 1;
+        box-shadow: 0 0 10px #2683cc;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .image {
+        display: none;
+      }
     }
   }
 }
