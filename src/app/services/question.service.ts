@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
 export class QuestionService {
   constructor(private _apollo: Apollo) {}
 
-  CATEGORY_ID_FIXED_QUESTIONS = 4;
+  CATEGORY_ID_FIXED_QUESTIONS = 0;
 
   getDataFromGraphQl() {
     const data = this._apollo
@@ -51,7 +51,8 @@ export class QuestionService {
     const categories = [];
 
     const fixedCategory = {
-      categoryId: this.CATEGORY_ID_FIXED_QUESTIONS,
+      categoryId: +this.CATEGORY_ID_FIXED_QUESTIONS,
+      order: +this.CATEGORY_ID_FIXED_QUESTIONS,
       name: '',
       questions: []
     };
@@ -61,13 +62,14 @@ export class QuestionService {
     data.allCategory.edges.forEach(el => {
       categories.push({
         categoryId: +el.node.categoryId,
+        order: +el.node.position,
         name: el.node.description,
         questions: []
       });
     });
 
     // Sort descending
-    return categories.sort((a, b) => b.categoryId - a.categoryId);
+    return categories.sort((a, b) => a.order - b.order);
   }
 
   formatCourses(data) {
@@ -178,7 +180,7 @@ export class QuestionService {
         key: 'grade',
         label: 'Selecione a sua grade curricular:',
         value: '',
-        category: this.CATEGORY_ID_FIXED_QUESTIONS,
+        category: +this.CATEGORY_ID_FIXED_QUESTIONS,
         required: true,
         options: {
           firstcolumn: [
@@ -192,7 +194,7 @@ export class QuestionService {
         key: 'materia',
         label: 'Selecione a matéria:',
         value: '',
-        category: this.CATEGORY_ID_FIXED_QUESTIONS,
+        category: +this.CATEGORY_ID_FIXED_QUESTIONS,
         required: true,
         options: allFormatedData['schoolSubjects'],
         order: 2
@@ -201,7 +203,7 @@ export class QuestionService {
         key: 'professor',
         label: 'Selecione o professor:',
         value: '',
-        category: this.CATEGORY_ID_FIXED_QUESTIONS,
+        category: +this.CATEGORY_ID_FIXED_QUESTIONS,
         required: true,
         options: allFormatedData['teachers'],
         order: 3
@@ -219,6 +221,8 @@ export class QuestionService {
         }
       });
     });
+
+    console.log(group);
 
     return group;
   }

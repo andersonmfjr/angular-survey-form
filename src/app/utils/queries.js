@@ -55,6 +55,7 @@ export const QGL_GET_ALL_DATA = gql`
         node {
           categoryId
           description
+          position
         }
       }
     }
