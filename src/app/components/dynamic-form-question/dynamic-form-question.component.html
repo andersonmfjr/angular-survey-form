@@ -1,54 +1,99 @@
-<div [formGroup]="form" [id]="'questao'+question.order" class="question-container">
-  <h3 [attr.for]="question.key">{{question.order}}. {{question.label}}</h3>
+<div
+  [formGroup]="form"
+  [id]="'questao' + question.order"
+  class="question-container"
+>
+  <h3 [attr.for]="question.key">{{ question.order }}. {{ question.label }}</h3>
 
   <div [ngSwitch]="question.controlType">
-
     <div class="alternatives" *ngSwitchCase="'radio'">
       <div class="first-column" (click)="scrollTo(question.order)">
-        <div class="inputGroup" *ngFor="let opt of question.options.firstcolumn">
-          <input (change)="qtQuestions()" [formControlName]="question.key" [id]="opt.key" [name]="opt.name" [value]="opt.value"
-            [type]="question.controlType" />
-          <label [for]="opt.key">{{opt.label}}</label>
+        <div
+          class="inputGroup"
+          *ngFor="let opt of question.options.firstcolumn"
+        >
+          <input
+            (change)="qtQuestions()"
+            [formControlName]="question.key"
+            [id]="opt.key"
+            [name]="opt.name"
+            [value]="opt.value"
+            [type]="question.controlType"
+          />
+          <label [for]="opt.key">{{ opt.label }}</label>
         </div>
       </div>
 
       <div class="second-column" (click)="scrollTo(question.order)">
-        <div class="inputGroup" *ngFor="let opt of question.options.secondcolumn">
-          <input (change)="qtQuestions()" [formControlName]="question.key" [id]="opt.key" [name]="opt.name" [value]="opt.value"
-            [type]="question.controlType" />
-          <label [for]="opt.key">{{opt.label}}</label>
+        <div
+          class="inputGroup"
+          *ngFor="let opt of question.options.secondcolumn"
+        >
+          <input
+            (change)="qtQuestions()"
+            [formControlName]="question.key"
+            [id]="opt.key"
+            [name]="opt.name"
+            [value]="opt.value"
+            [type]="question.controlType"
+          />
+          <label [for]="opt.key">{{ opt.label }}</label>
         </div>
       </div>
     </div>
 
-    <!-- <input *ngSwitchCase="'textbox'" [formControlName]="question.key" [id]="question.key" [type]="question.type"> -->
+    <!--
+      <input *ngSwitchCase="'textbox'" [formControlName]="question.key" [id]="question.key" [type]="question.type">
+    -->
 
     <div *ngSwitchCase="'textarea'">
-      <textarea (change)="qtQuestions()" rows="8" cols="50" [formControlName]="question.key" [id]="question.key"></textarea>
-      <button *ngIf="question.order !== lenOfQuestions" type="button" (click)="scrollTo(question.order)">
+      <textarea
+        (change)="qtQuestions()"
+        rows="8"
+        cols="50"
+        [formControlName]="question.key"
+        [id]="question.key"
+      ></textarea>
+      <button
+        *ngIf="question.order !== lenOfQuestions"
+        type="button"
+        (click)="scrollTo(question.order)"
+      >
         Ok
       </button>
     </div>
 
-    <!-- <div *ngSwitchCase="'dropdown'">
-      <select (change)="scrollTo(question.order)" [id]=" question.key" class="minimal" [formControlName]="question.key">
-        <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
-      </select>
-    </div> -->
+    <!--
+      <div *ngSwitchCase="'dropdown'">
+        <select (change)="scrollTo(question.order)" [id]=" question.key" class="minimal" [formControlName]="question.key">
+          <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+        </select>
+      </div>
+    -->
 
     <div *ngSwitchCase="'dropdown'">
-      <ng-select [clearable]="false" clearOnBackspace="false" (change)="scrollTo(question.order); qtQuestions()" class="custom"
-        [searchable]="true" [id]="question.key" [formControlName]="question.key">
+      <ng-select
+        [clearable]="false"
+        clearOnBackspace="false"
+        (change)="scrollTo(question.order); qtQuestions()"
+        class="custom"
+        [searchable]="true"
+        [id]="question.key"
+        [formControlName]="question.key"
+      >
         <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
           <div class="ng-option disabled">
             Sem itens para sua busca, por favor tente outros termos
           </div>
         </ng-template>
-        <ng-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</ng-option>
+        <ng-option *ngFor="let opt of question.options" [value]="opt.key">{{
+          opt.name
+        }}</ng-option>
       </ng-select>
     </div>
-
   </div>
 
-  <!-- <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div> -->
+  <!--
+    <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
+  -->
 </div>

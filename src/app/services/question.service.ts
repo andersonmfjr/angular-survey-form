@@ -5,177 +5,181 @@ import { QuestionBase } from '../models/question-base';
 import { TextareaQuestion } from '../models/question-textarea';
 import { RadioQuestion } from '../models/question-radio';
 
+import { allData } from '../utils/queries.js';
+
+import { Apollo } from 'apollo-angular';
+import { map } from 'rxjs/operators';
+
 @Injectable()
 export class QuestionService {
-  // TODO: get from a remote source of question metadata
-  // TODO: make asynchronous
-  /*getQuestions(): Promise<QuestionBase<any>[]> {
+  constructor(private _apollo: Apollo) {}
+
+  getDataFromGraphQl() {
+    const data = this._apollo
+      .watchQuery<any>({
+        query: allData
+      })
+      .valueChanges.pipe(map(result => result.data));
+
+    return data;
+  }
+
+  formatAllData() {
     return new Promise(resolve => {
-      resolve(this.getQuestionsOriginal());
+      this.getDataFromGraphQl().subscribe(data => {
+        const formatedData = {};
+        const questions = this.formatQuestions(data);
+        const schoolSubjects = this.formatSchoolSubjects(data);
+        const teachers = this.formatTeachers(data);
+        const courses = this.formatCourses(data);
+
+        formatedData['questions'] = questions;
+        formatedData['schoolSubjects'] = schoolSubjects;
+        formatedData['teachers'] = teachers;
+        formatedData['courses'] = courses;
+
+        resolve(formatedData);
+      });
     });
-  }*/
+  }
 
-  /*
-  new DropdownQuestion({
-    key: 'rating',
-    label: 'Bravery Rating',
-    value: '',
-    options: [
-      { key: 'solid', value: 'Solid' },
-      { key: 'great', value: 'Great' },
-      { key: 'good', value: 'Good' },
-      { key: 'unproven', value: 'Unproven' }
-    ],
-    order: 3
-  })
-  */
+  formatCourses(data) {
+    const courses = [];
 
-  /*
-  new TextareaQuestion({
-        key: 'name',
-        label: 'First name',
-        value: '',
-        required: true,
-        divId: 'questao4',
-        order: 4
-      }),
-*/
+    data.allCourse.edges.forEach(el => {
+      courses.push({
+        value: el.node.courseId,
+        label: el.node.name
+      });
+    });
 
-  getQuestions() {
-    const questions: QuestionBase<any>[] = [
-      new DropdownQuestion({
+    return courses;
+  }
+
+  formatTeachers(data) {
+    const teachers = [];
+
+    data.allTeacher.edges.forEach(el => {
+      teachers.push({
+        key: el.node.teacherId,
+        name: el.node.name
+      });
+    });
+
+    return teachers;
+  }
+
+  formatSchoolSubjects(data) {
+    const schoolSubjects = [];
+
+    data.allSchoolSubjects.edges.forEach(el => {
+      schoolSubjects.push({
+        key: el.node.schoolSubjectId,
+        name: el.node.name
+      });
+    });
+
+    return schoolSubjects;
+  }
+
+  formatQuestions(data) {
+    const questions = [];
+    data.allQuestion.edges.forEach(el => {
+      if (el.node.isChoice) {
+        const offeredAnswers = el.node.offeredAnswers.edges.sort(
+          (a, b) => a.node.position - b.node.position
+        );
+        const amountQuestionsInColumns = Math.floor(offeredAnswers.length / 2);
+
+        const questionsInFirstColumn = [];
+        const questionsInSecondColumn = [];
+
+        offeredAnswers.forEach((element, index) => {
+          if (index < amountQuestionsInColumns) {
+            questionsInFirstColumn.push({
+              key: `${el.node.questionId}${index}`,
+              name: el.node.questionId,
+              value: element.node.offeredAnswerId,
+              label: element.node.answerText
+            });
+          } else {
+            questionsInSecondColumn.push({
+              key: `${el.node.questionId}${index}`,
+              name: el.node.questionId,
+              value: element.node.position,
+              label: element.node.answerText
+            });
+          }
+        });
+
+        questions.push(
+          new RadioQuestion({
+            key: el.node.questionId,
+            category: el.node.category.categoryId,
+            label: el.node.questionText,
+            required: el.node.required,
+            order: +(el.node.position + 3),
+            options: {
+              firstcolumn: questionsInFirstColumn,
+              secondcolumn: questionsInSecondColumn
+            }
+          })
+        );
+      } else {
+        questions.push(
+          new TextareaQuestion({
+            key: el.node.questionId,
+            category: el.node.category.categoryId,
+            label: el.node.questionText,
+            value: '',
+            required: el.node.required,
+            order: +(el.node.position + 3)
+          })
+        );
+      }
+    });
+
+    return questions;
+  }
+
+  async getQuestions() {
+    const allFormatedData = await this.formatAllData();
+
+    const fixedQuestions: QuestionBase<any>[] = [
+      new RadioQuestion({
         key: 'grade',
         label: 'Selecione a sua grade curricular:',
         value: '',
         required: true,
-        options: [
-          { key: '2018', value: '2018 - Grade nova' },
-          { key: '2012', value: '2012 - Grade nova' }
-        ],
+        options: {
+          firstcolumn: [
+            { key: 'grade1', name: 'grade', ...allFormatedData['courses'][0] },
+            { key: 'grade2', name: 'grade', ...allFormatedData['courses'][1] }
+          ]
+        },
         order: 1
       }),
-
       new DropdownQuestion({
         key: 'materia',
         label: 'Selecione a matéria:',
         value: '',
         required: true,
-        options: [
-          { key: 'orge', value: 'Organização de empresas' },
-          { key: 'proo', value: 'Programação orientada a objetos' },
-          { key: 'mpec', value: 'Metodologia da pesquisa científica' }
-        ],
+        options: allFormatedData['schoolSubjects'],
         order: 2
       }),
-
       new DropdownQuestion({
         key: 'professor',
         label: 'Selecione o professor:',
         value: '',
         required: true,
-        options: [
-          { key: 'flavio', value: 'Flávio Mota Medeiros' },
-          { key: 'elvys', value: 'Elvys' }
-        ],
+        options: allFormatedData['teachers'],
         order: 3
-      }),
-
-      new RadioQuestion({
-        key: 'dominioconteudo',
-        label: 'O professor aparenta ter domínio do conteúdo?',
-        required: true,
-        options: {
-          firstcolumn: [
-            {
-              key: 'radio1',
-              name: 'dominioconteudo',
-              value: '5',
-              label: 'Extremamente'
-            },
-            {
-              key: 'radio2',
-              name: 'dominioconteudo',
-              value: '4',
-              label: 'Muito'
-            },
-            {
-              key: 'radio3',
-              name: 'dominioconteudo',
-              value: '3',
-              label: 'Um pouco'
-            }
-          ],
-          secondcolumn: [
-            {
-              key: 'radio4',
-              name: 'dominioconteudo',
-              value: '2',
-              label: 'Nem tanto'
-            },
-            {
-              key: 'radio5',
-              name: 'dominioconteudo',
-              value: '1',
-              label: 'De forma alguma'
-            }
-          ]
-        },
-        order: 4
-      }),
-
-      new RadioQuestion({
-        key: 'conteudoclaro',
-        label:
-          'O quão claro o professor apresentou o material de curso (método de avaliação, cronograma, etc)?',
-        required: true,
-        options: {
-          firstcolumn: [
-            {
-              key: 'radio6',
-              name: 'conteudoclaro',
-              value: '5',
-              label: 'Extremamente claro'
-            },
-            {
-              key: 'radio7',
-              name: 'conteudoclaro',
-              value: '4',
-              label: 'Muito claro'
-            },
-            {
-              key: 'radio8',
-              name: 'conteudoclaro',
-              value: '3',
-              label: 'Um pouco'
-            }
-          ],
-          secondcolumn: [
-            {
-              key: 'radio9',
-              name: 'conteudoclaro',
-              value: '2',
-              label: 'Nem tanto'
-            },
-            {
-              key: 'radio10',
-              name: 'conteudoclaro',
-              value: '1',
-              label: 'De forma alguma'
-            }
-          ]
-        },
-        order: 5
-      }),
-
-      new TextareaQuestion({
-        key: 'profaberta',
-        label:
-          'Tem algum outro comentário a acrescentar sobre o professor ou sobre a matéria? Críticas, comentários, dicas?',
-        value: '',
-        required: false,
-        order: 6
       })
     ];
+
+    const questions = fixedQuestions.concat(allFormatedData['questions']);
+
+    console.log(questions);
 
     return questions.sort((a, b) => a.order - b.order);
   }

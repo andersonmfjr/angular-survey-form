@@ -31,6 +31,7 @@ export class DynamicFormComponent implements OnInit {
     console.log('submit chamado');
     this._router.navigate(['/agradecimento']);
     this.payLoad = JSON.stringify(this.form.value);
+    console.log(this.payLoad);
   }
 
   receiverQtQuestions(values) {
