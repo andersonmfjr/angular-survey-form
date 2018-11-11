@@ -1,3 +1,17 @@
 <div>
-  <app-dynamic-form *ngIf="questions" [questions]="questions"></app-dynamic-form>
+  <app-dynamic-form
+    *ngIf="groups; else: loader"
+    [groups]="groups"
+  ></app-dynamic-form>
+
+  <ng-template #loader>
+    <div class="load">
+      <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </ng-template>
 </div>

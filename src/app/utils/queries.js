@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const allData = gql`
+export const QGL_GET_ALL_DATA = gql`
   {
     allQuestion {
       edges {
@@ -47,6 +47,14 @@ export const allData = gql`
         node {
           courseId
           name
+        }
+      }
+    }
+    allCategory {
+      edges {
+        node {
+          categoryId
+          description
         }
       }
     }

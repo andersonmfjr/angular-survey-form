@@ -5,7 +5,7 @@ import { QuestionBase } from '../models/question-base';
 import { TextareaQuestion } from '../models/question-textarea';
 import { RadioQuestion } from '../models/question-radio';
 
-import { allData } from '../utils/queries.js';
+import { QGL_GET_ALL_DATA } from '../utils/queries.js';
 
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators';
@@ -14,10 +14,12 @@ import { map } from 'rxjs/operators';
 export class QuestionService {
   constructor(private _apollo: Apollo) {}
 
+  CATEGORY_ID_FIXED_QUESTIONS = 4;
+
   getDataFromGraphQl() {
     const data = this._apollo
-      .watchQuery<any>({
-        query: allData
+      .watchQuery({
+        query: QGL_GET_ALL_DATA
       })
       .valueChanges.pipe(map(result => result.data));
 
@@ -32,15 +34,40 @@ export class QuestionService {
         const schoolSubjects = this.formatSchoolSubjects(data);
         const teachers = this.formatTeachers(data);
         const courses = this.formatCourses(data);
+        const categories = this.formatCategories(data);
 
         formatedData['questions'] = questions;
         formatedData['schoolSubjects'] = schoolSubjects;
         formatedData['teachers'] = teachers;
         formatedData['courses'] = courses;
+        formatedData['categories'] = categories;
 
         resolve(formatedData);
       });
     });
+  }
+
+  formatCategories(data) {
+    const categories = [];
+
+    const fixedCategory = {
+      categoryId: this.CATEGORY_ID_FIXED_QUESTIONS,
+      name: '',
+      questions: []
+    };
+
+    categories.push(fixedCategory);
+
+    data.allCategory.edges.forEach(el => {
+      categories.push({
+        categoryId: +el.node.categoryId,
+        name: el.node.description,
+        questions: []
+      });
+    });
+
+    // Sort descending
+    return categories.sort((a, b) => b.categoryId - a.categoryId);
   }
 
   formatCourses(data) {
@@ -115,7 +142,7 @@ export class QuestionService {
         questions.push(
           new RadioQuestion({
             key: el.node.questionId,
-            category: el.node.category.categoryId,
+            category: +el.node.category.categoryId,
             label: el.node.questionText,
             required: el.node.required,
             order: +(el.node.position + 3),
@@ -129,7 +156,7 @@ export class QuestionService {
         questions.push(
           new TextareaQuestion({
             key: el.node.questionId,
-            category: el.node.category.categoryId,
+            category: +el.node.category.categoryId,
             label: el.node.questionText,
             value: '',
             required: el.node.required,
@@ -144,12 +171,14 @@ export class QuestionService {
 
   async getQuestions() {
     const allFormatedData = await this.formatAllData();
+    const group = allFormatedData['categories'];
 
     const fixedQuestions: QuestionBase<any>[] = [
       new RadioQuestion({
         key: 'grade',
         label: 'Selecione a sua grade curricular:',
         value: '',
+        category: this.CATEGORY_ID_FIXED_QUESTIONS,
         required: true,
         options: {
           firstcolumn: [
@@ -163,6 +192,7 @@ export class QuestionService {
         key: 'materia',
         label: 'Selecione a matéria:',
         value: '',
+        category: this.CATEGORY_ID_FIXED_QUESTIONS,
         required: true,
         options: allFormatedData['schoolSubjects'],
         order: 2
@@ -171,6 +201,7 @@ export class QuestionService {
         key: 'professor',
         label: 'Selecione o professor:',
         value: '',
+        category: this.CATEGORY_ID_FIXED_QUESTIONS,
         required: true,
         options: allFormatedData['teachers'],
         order: 3
@@ -179,8 +210,18 @@ export class QuestionService {
 
     const questions = fixedQuestions.concat(allFormatedData['questions']);
 
-    console.log(questions);
+    const questionsSorted = questions.sort((a, b) => a.order - b.order);
 
-    return questions.sort((a, b) => a.order - b.order);
+    group.forEach(gr => {
+      questionsSorted.forEach(qs => {
+        if (qs.category === gr.categoryId) {
+          gr.questions.push(qs);
+        }
+      });
+    });
+
+    return group;
   }
+
+  mutationData(questions, answers) {}
 }

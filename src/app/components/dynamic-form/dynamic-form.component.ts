@@ -12,7 +12,7 @@ import { QuestionControlService } from '../../services/question-control.service'
 })
 export class DynamicFormComponent implements OnInit {
   @Input()
-  questions: QuestionBase<any>[] = [];
+  groups: object[] = [];
 
   form: FormGroup;
   payLoad = '';
@@ -23,8 +23,14 @@ export class DynamicFormComponent implements OnInit {
   constructor(private _qcs: QuestionControlService, private _router: Router) {}
 
   ngOnInit() {
-    this.form = this._qcs.toFormGroup(this.questions);
-    this.lenOfQuestions = this.questions.length;
+    const questions: QuestionBase<any>[] = [];
+    this.groups.forEach(gp => {
+      gp['questions'].forEach(qs => {
+        questions.push(qs);
+      });
+    });
+    this.form = this._qcs.toFormGroup(questions);
+    this.lenOfQuestions = questions.length;
   }
 
   onSubmit() {

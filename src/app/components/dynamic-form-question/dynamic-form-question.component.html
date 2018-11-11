@@ -42,10 +42,6 @@
       </div>
     </div>
 
-    <!--
-      <input *ngSwitchCase="'textbox'" [formControlName]="question.key" [id]="question.key" [type]="question.type">
-    -->
-
     <div *ngSwitchCase="'textarea'">
       <textarea
         (change)="qtQuestions()"
@@ -62,14 +58,6 @@
         Ok
       </button>
     </div>
-
-    <!--
-      <div *ngSwitchCase="'dropdown'">
-        <select (change)="scrollTo(question.order)" [id]=" question.key" class="minimal" [formControlName]="question.key">
-          <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
-        </select>
-      </div>
-    -->
 
     <div *ngSwitchCase="'dropdown'">
       <ng-select

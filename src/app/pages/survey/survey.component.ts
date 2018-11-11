@@ -4,20 +4,18 @@ import { QuestionService } from '../../services/question.service';
 @Component({
   selector: 'app-survey',
   templateUrl: './survey.component.html',
-  providers: [QuestionService],
-  styleUrls: ['./survey.component.scss']
+  providers: [QuestionService]
 })
 export class SurveyComponent implements OnInit {
-  questions: any[];
-
-  questionsGraphQl: any[];
+  groups: Object[];
 
   constructor(private _service: QuestionService) {
-    this.getQuestions();
+    this.getGroupOfQuestions();
   }
 
-  async getQuestions() {
-    this.questions = await this._service.getQuestions();
+  async getGroupOfQuestions() {
+    this.groups = await this._service.getQuestions();
+    console.table(this.groups);
   }
 
   ngOnInit() {}
