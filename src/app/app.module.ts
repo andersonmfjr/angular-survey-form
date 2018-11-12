@@ -43,7 +43,7 @@ import { ThanksComponent } from './pages/thanks/thanks.component';
 export class AppModule {
   constructor(apollo: Apollo, httpLink: HttpLink) {
     apollo.create({
-      link: httpLink.create({ uri: 'http://127.0.0.1:5000/graphql' }),
+      link: httpLink.create({ uri: 'https://api-survey-ifal.herokuapp.com/graphql' }),
       cache: new InMemoryCache()
     });
   }
