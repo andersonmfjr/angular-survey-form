@@ -88,14 +88,6 @@
       <button
         *ngIf="question.order !== lenOfQuestions"
         type="button"
-        (click)="hideKeyboard()"
-      >
-        Ocultar teclado
-      </button>
-
-      <button
-        *ngIf="question.order !== lenOfQuestions"
-        type="button"
         (click)="scrollTo(question.order)"
       >
         Próxima questão

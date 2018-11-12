@@ -30,14 +30,6 @@ export class DynamicFormQuestionComponent {
     return this.form.controls[this.question.key].valid;
   }
 
-  hideKeyboard() {
-    const element = document.activeElement as HTMLInputElement;
-
-    if (typeof element.blur === 'function') {
-      element.blur();
-    }
-  }
-
   hideVirtualKeyboard() {
     return new Promise(resolve => {
       const element = document.activeElement as HTMLInputElement;
@@ -56,8 +48,11 @@ export class DynamicFormQuestionComponent {
   }
 
   async scrollTo(questionId) {
-    await this.hideVirtualKeyboard();
-    console.log('Await terminado');
+    const result = await this.hideVirtualKeyboard();
+
+    if (result) {
+      alert('Await terminado');
+    }
 
     const nextNumber = +questionId + 1;
     const nextTarget = `questao${nextNumber}`;
