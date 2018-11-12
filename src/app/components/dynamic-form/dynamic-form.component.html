@@ -16,13 +16,17 @@
     </div>
 
     <div class="form-submit">
-      <div>
+      <div *ngIf="!loading; else: loader">
         <p *ngIf="!form.valid">
           Você precisa responder todas as perguntas fechadas para liberar o
           envio
         </p>
+
         <button type="submit" [disabled]="!form.valid">Enviar</button>
       </div>
+      <ng-template #loader
+        ><app-loader [margin]="'0rem'"></app-loader
+      ></ng-template>
     </div>
 
     <footer>

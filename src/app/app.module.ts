@@ -17,6 +17,7 @@ import { DynamicFormQuestionComponent } from './components/dynamic-form-question
 import { SurveyComponent } from './pages/survey/survey.component';
 import { HintsComponent } from './pages/hints/hints.component';
 import { ThanksComponent } from './pages/thanks/thanks.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ThanksComponent } from './pages/thanks/thanks.component';
     DynamicFormQuestionComponent,
     SurveyComponent,
     HintsComponent,
-    ThanksComponent
+    ThanksComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,7 @@ app-dynamic-form {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20rem;
 
     div {
       display: flex;
@@ -37,7 +38,6 @@ app-dynamic-form {
       border-radius: $border-radius;
       font-size: 1rem;
       opacity: 0.9;
-      margin-bottom: 20rem;
 
       &:hover {
         opacity: 1;
@@ -77,6 +77,12 @@ app-dynamic-form {
 
     .progess {
       color: white;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    form {
+      margin-top: 5rem;
     }
   }
 }

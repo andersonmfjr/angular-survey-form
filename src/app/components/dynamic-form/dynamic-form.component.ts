@@ -20,6 +20,7 @@ export class DynamicFormComponent implements OnInit {
 
   lenOfQuestions: number;
   questionsAnswered = 0;
+  loading = false;
 
   constructor(
     private _qcs: QuestionControlService,
@@ -39,10 +40,11 @@ export class DynamicFormComponent implements OnInit {
   }
 
   async onSubmit() {
-    console.log('submit chamado');
+    this.loading = true;
     const result = await this._service.formatDataToMutation(this.form.value);
     console.log(result);
     this._router.navigate(['/agradecimento']);
+    this.loading = false;
   }
 
   receiverQtQuestions(values) {

@@ -3,15 +3,5 @@
     *ngIf="groups; else: loader"
     [groups]="groups"
   ></app-dynamic-form>
-
-  <ng-template #loader>
-    <div class="load">
-      <div class="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </ng-template>
+  <ng-template #loader><app-loader [margin]="'8rem'"></app-loader></ng-template>
 </div>
