@@ -49,17 +49,15 @@
     <div *ngSwitchCase="'textarea'">
       <textarea
         (change)="qtQuestions()"
-        rows="8"
+        rows="4"
         cols="50"
         [formControlName]="question.key"
         [id]="question.key"
       ></textarea>
-      <button
-        *ngIf="question.order !== lenOfQuestions"
-        type="button"
-        (click)="scrollTo(question.order)"
-      >
-        Próxima questão
+
+      <button type="button" (click)="scrollTo(question.order)">
+        <span *ngIf="question.order !== lenOfQuestions">Próxima questão</span>
+        <span *ngIf="question.order === lenOfQuestions">Próximo passo</span>
       </button>
     </div>
 
@@ -84,12 +82,9 @@
         }}</ng-option>
       </ng-select>
 
-      <button
-        *ngIf="question.order !== lenOfQuestions"
-        type="button"
-        (click)="scrollTo(question.order)"
-      >
-        Próxima questão
+      <button type="button" (click)="scrollTo(question.order)">
+        <span *ngIf="question.order !== lenOfQuestions">Próxima questão</span>
+        <span *ngIf="question.order === lenOfQuestions">Próximo passo</span>
       </button>
     </div>
   </div>

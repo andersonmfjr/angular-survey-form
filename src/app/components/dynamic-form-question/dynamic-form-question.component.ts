@@ -69,14 +69,23 @@ export class DynamicFormQuestionComponent {
     const nextNumber = +questionId + 1;
     const nextTarget = `questao${nextNumber}`;
 
-    const config: ScrollToConfigOptions = {
-      duration: 650,
-      target: nextTarget,
-      easing: 'easeOutQuad',
-      offset: -150
-    };
-
     if (nextNumber <= this.lenOfQuestions) {
+      const config: ScrollToConfigOptions = {
+        duration: 650,
+        target: nextTarget,
+        easing: 'easeOutQuad',
+        offset: -150
+      };
+
+      this._scrollToService.scrollTo(config);
+    } else {
+      const config: ScrollToConfigOptions = {
+        duration: 650,
+        target: 'divenviar',
+        easing: 'easeOutQuad',
+        offset: -150
+      };
+
       this._scrollToService.scrollTo(config);
     }
   }
