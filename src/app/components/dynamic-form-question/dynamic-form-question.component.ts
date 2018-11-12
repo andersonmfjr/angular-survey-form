@@ -54,7 +54,7 @@ export class DynamicFormQuestionComponent {
     alert(nextT);
 
     if (result) {
-      setInterval(() => {
+      setTimeout(() => {
         const nextNumber = +questionId + 1;
         const nextTarget = `questao${nextNumber}`;
 
