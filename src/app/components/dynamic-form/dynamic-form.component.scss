@@ -9,6 +9,10 @@ app-dynamic-form {
     font-size: 1rem;
     line-height: 2rem;
     margin-top: 12rem;
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
   }
 
   .form-submit {

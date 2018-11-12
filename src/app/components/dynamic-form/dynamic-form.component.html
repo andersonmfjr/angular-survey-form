@@ -2,7 +2,7 @@
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div *ngFor="let group of groups">
       <div>
-        <h2 *ngIf="group.name">{{ group.name }}:</h2>
+        <h3 class="form-group" *ngIf="group.name">{{ group.name }}:</h3>
         <div *ngFor="let question of group.questions">
           <app-question
             [question]="question"

@@ -63,7 +63,9 @@
       <ng-select
         [clearable]="false"
         clearOnBackspace="false"
-        (change)="scrollTo(question.order); qtQuestions()"
+        (change)="
+          scrollTo(question.order); qtQuestions(); hideVirtualKeyboard()
+        "
         class="custom"
         [searchable]="true"
         [id]="question.key"

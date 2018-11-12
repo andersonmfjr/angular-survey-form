@@ -124,4 +124,14 @@ app-question {
     }
   }
   // Fim estilos gerais
+
+  @media only screen and (max-width: 600px) {
+    .question-container {
+      height: 100vh;
+    }
+
+    .inputGroup {
+      font-size: 0.9rem;
+    }
+  }
 }

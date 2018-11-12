@@ -30,6 +30,14 @@ export class DynamicFormQuestionComponent {
     return this.form.controls[this.question.key].valid;
   }
 
+  hideVirtualKeyboard() {
+    const element = document.activeElement as HTMLInputElement;
+
+    if (typeof element.blur === 'function') {
+      element.blur();
+    }
+  }
+
   qtQuestions() {
     this.formValues.emit(this.form.value);
   }
@@ -42,7 +50,7 @@ export class DynamicFormQuestionComponent {
       duration: 650,
       target: nextTarget,
       easing: 'easeOutQuad',
-      offset: -200
+      offset: -130
     };
 
     if (nextNumber <= this.lenOfQuestions) {
