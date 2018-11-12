@@ -3,12 +3,13 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { QuestionBase } from '../../models/question-base';
+import { QuestionService } from '../../services/question.service';
 import { QuestionControlService } from '../../services/question-control.service';
 
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
-  providers: [QuestionControlService]
+  providers: [QuestionControlService, QuestionService]
 })
 export class DynamicFormComponent implements OnInit {
   @Input()
@@ -20,7 +21,11 @@ export class DynamicFormComponent implements OnInit {
   lenOfQuestions: number;
   questionsAnswered = 0;
 
-  constructor(private _qcs: QuestionControlService, private _router: Router) {}
+  constructor(
+    private _qcs: QuestionControlService,
+    private _router: Router,
+    private _service: QuestionService
+  ) {}
 
   ngOnInit() {
     const questions: QuestionBase<any>[] = [];
@@ -33,11 +38,11 @@ export class DynamicFormComponent implements OnInit {
     this.lenOfQuestions = questions.length;
   }
 
-  onSubmit() {
+  async onSubmit() {
     console.log('submit chamado');
+    const result = await this._service.formatDataToMutation(this.form.value);
+    console.log(result);
     this._router.navigate(['/agradecimento']);
-    this.payLoad = JSON.stringify(this.form.value);
-    console.log(this.payLoad);
   }
 
   receiverQtQuestions(values) {

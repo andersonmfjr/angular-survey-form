@@ -5,7 +5,7 @@ import { QuestionBase } from '../models/question-base';
 import { TextareaQuestion } from '../models/question-textarea';
 import { RadioQuestion } from '../models/question-radio';
 
-import { QGL_GET_ALL_DATA } from '../utils/queries.js';
+import { QGL_GET_ALL_DATA, MUTATE_REPLIES } from '../utils/queries.js';
 
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators';
@@ -15,6 +15,7 @@ export class QuestionService {
   constructor(private _apollo: Apollo) {}
 
   CATEGORY_ID_FIXED_QUESTIONS = 0;
+  QT_OF_FIXED_QUESTIONS = 3;
 
   getDataFromGraphQl() {
     const data = this._apollo
@@ -68,7 +69,6 @@ export class QuestionService {
       });
     });
 
-    // Sort descending
     return categories.sort((a, b) => a.order - b.order);
   }
 
@@ -147,7 +147,7 @@ export class QuestionService {
             category: +el.node.category.categoryId,
             label: el.node.questionText,
             required: el.node.required,
-            order: +(el.node.position + 3),
+            order: +(el.node.position + this.QT_OF_FIXED_QUESTIONS),
             options: {
               firstcolumn: questionsInFirstColumn,
               secondcolumn: questionsInSecondColumn
@@ -162,7 +162,7 @@ export class QuestionService {
             label: el.node.questionText,
             value: '',
             required: el.node.required,
-            order: +(el.node.position + 3)
+            order: +(el.node.position + this.QT_OF_FIXED_QUESTIONS)
           })
         );
       }
@@ -177,7 +177,7 @@ export class QuestionService {
 
     const fixedQuestions: QuestionBase<any>[] = [
       new RadioQuestion({
-        key: 'grade',
+        key: 'course',
         label: 'Selecione a sua grade curricular:',
         value: '',
         category: +this.CATEGORY_ID_FIXED_QUESTIONS,
@@ -191,7 +191,7 @@ export class QuestionService {
         order: 1
       }),
       new DropdownQuestion({
-        key: 'materia',
+        key: 'schoolSubject',
         label: 'Selecione a matéria:',
         value: '',
         category: +this.CATEGORY_ID_FIXED_QUESTIONS,
@@ -200,7 +200,7 @@ export class QuestionService {
         order: 2
       }),
       new DropdownQuestion({
-        key: 'professor',
+        key: 'teacher',
         label: 'Selecione o professor:',
         value: '',
         category: +this.CATEGORY_ID_FIXED_QUESTIONS,
@@ -222,10 +222,52 @@ export class QuestionService {
       });
     });
 
-    console.log(group);
-
     return group;
   }
 
-  mutationData(questions, answers) {}
+  async formatDataToMutation(questionsAnswers) {
+    // teacherId: 1, schoolSubjectId: 1, questionsId: [1,2], replies: ["txt", "1"]
+    const teacherId = +questionsAnswers['teacher'];
+    const schoolSubjectId = +questionsAnswers['schoolSubject'];
+    const courseId = +questionsAnswers['course'];
+
+    const questionsId = [];
+    const replies = [];
+
+    for (const [key, val] of Object.entries(questionsAnswers)) {
+      if (isNaN(+key) === false) {
+        questionsId.push(+key);
+        replies.push(val.toString());
+      }
+    }
+
+    const result = await this.mutationData(
+      teacherId,
+      schoolSubjectId,
+      courseId,
+      questionsId,
+      replies
+    );
+
+    return result;
+  }
+
+  mutationData(teacher, schoolSubject, course, questions, replies) {
+    return new Promise(resolve => {
+      this._apollo
+        .mutate({
+          mutation: MUTATE_REPLIES,
+          variables: {
+            teacherId: teacher,
+            schoolSubjectId: schoolSubject,
+            courseId: course,
+            questionsId: questions,
+            replies: replies
+          }
+        })
+        .subscribe(res => {
+          resolve(res);
+        });
+    });
+  }
 }

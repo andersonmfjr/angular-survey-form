@@ -61,3 +61,23 @@ export const QGL_GET_ALL_DATA = gql`
     }
   }
 `;
+
+export const MUTATE_REPLIES = gql`
+  mutation replyAnswerText(
+    $teacherId: Int!
+    $schoolSubjectId: Int!
+    $courseId: Int!
+    $questionsId: [Int]!
+    $replies: [String]!
+  ) {
+    replyAnswerText(
+      teacherId: $teacherId
+      schoolSubjectId: $schoolSubjectId
+      courseId: $courseId
+      questionsId: $questionsId
+      replies: $replies
+    ) {
+      ok
+    }
+  }
+`;

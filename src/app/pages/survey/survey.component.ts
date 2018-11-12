@@ -15,7 +15,6 @@ export class SurveyComponent implements OnInit {
 
   async getGroupOfQuestions() {
     this.groups = await this._service.getQuestions();
-    console.table(this.groups);
   }
 
   ngOnInit() {}
