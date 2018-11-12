@@ -51,22 +51,22 @@ export class DynamicFormQuestionComponent {
     const result = await this.hideVirtualKeyboard();
 
     if (result) {
-      alert('Await terminado');
-    }
+      setInterval(() => {
+        const nextNumber = +questionId + 1;
+        const nextTarget = `questao${nextNumber}`;
 
-    const nextNumber = +questionId + 1;
-    const nextTarget = `questao${nextNumber}`;
+        const config: ScrollToConfigOptions = {
+          duration: 650,
+          target: nextTarget,
+          easing: 'easeOutQuad',
+          offset: -150
+        };
 
-    const config: ScrollToConfigOptions = {
-      duration: 650,
-      target: nextTarget,
-      easing: 'easeOutQuad',
-      offset: -150
-    };
-
-    if (nextNumber <= this.lenOfQuestions) {
-      this._scrollToService.scrollTo(config);
-      console.log('Função de animação');
+        if (nextNumber <= this.lenOfQuestions) {
+          this._scrollToService.scrollTo(config);
+          console.log('Função de animação');
+        }
+      }, 1500);
     }
   }
 }
