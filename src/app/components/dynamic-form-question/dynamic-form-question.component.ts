@@ -49,40 +49,29 @@ export class DynamicFormQuestionComponent {
 
   async scrollTo(questionId) {
     const result = await this.hideVirtualKeyboard();
-    const nextN = +questionId + 1;
-    const nextT = `questao${nextN}`;
-    alert(nextT);
 
     if (result) {
       setTimeout(() => {
-        const nextNumber = +questionId + 1;
-        const nextTarget = `questao${nextNumber}`;
-
-        const config: ScrollToConfigOptions = {
-          duration: 650,
-          target: nextTarget,
-          easing: 'easeOutQuad',
-          offset: -150
-        };
-
-        if (nextNumber <= this.lenOfQuestions) {
-          this._scrollToService.scrollTo(config);
-        }
+        this.goToNextElement(questionId);
       }, 500);
     } else {
-      const nextNumber = +questionId + 1;
-      const nextTarget = `questao${nextNumber}`;
+      this.goToNextElement(questionId);
+    }
+  }
 
-      const config: ScrollToConfigOptions = {
-        duration: 650,
-        target: nextTarget,
-        easing: 'easeOutQuad',
-        offset: -150
-      };
+  goToNextElement(questionId) {
+    const nextNumber = +questionId + 1;
+    const nextTarget = `questao${nextNumber}`;
 
-      if (nextNumber <= this.lenOfQuestions) {
-        this._scrollToService.scrollTo(config);
-      }
+    const config: ScrollToConfigOptions = {
+      duration: 650,
+      target: nextTarget,
+      easing: 'easeOutQuad',
+      offset: -150
+    };
+
+    if (nextNumber <= this.lenOfQuestions) {
+      this._scrollToService.scrollTo(config);
     }
   }
 }
