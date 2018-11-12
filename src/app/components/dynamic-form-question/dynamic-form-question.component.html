@@ -64,7 +64,7 @@
         [clearable]="false"
         clearOnBackspace="false"
         (change)="
-          scrollTo(question.order); qtQuestions(); hideVirtualKeyboard()
+          hideVirtualKeyboard(); qtQuestions(); scrollTo(question.order)
         "
         class="custom"
         [searchable]="true"
