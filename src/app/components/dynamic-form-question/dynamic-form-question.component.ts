@@ -30,6 +30,14 @@ export class DynamicFormQuestionComponent {
     return this.form.controls[this.question.key].valid;
   }
 
+  hideKeyboard() {
+    const element = document.activeElement as HTMLInputElement;
+
+    if (typeof element.blur === 'function') {
+      element.blur();
+    }
+  }
+
   hideVirtualKeyboard() {
     return new Promise(resolve => {
       const element = document.activeElement as HTMLInputElement;
