@@ -32,9 +32,14 @@ export class DynamicFormQuestionComponent {
 
   hideVirtualKeyboard() {
     const element = document.activeElement as HTMLInputElement;
+    const elementTextarea = document.activeElement as HTMLTextAreaElement;
 
     if (typeof element.blur === 'function') {
       element.blur();
+    }
+
+    if (typeof elementTextarea.blur === 'function') {
+      elementTextarea.blur();
     }
   }
 
@@ -43,6 +48,17 @@ export class DynamicFormQuestionComponent {
   }
 
   public scrollTo(questionId) {
+    const element = document.activeElement as HTMLInputElement;
+    const elementTextarea = document.activeElement as HTMLTextAreaElement;
+
+    if (typeof element.blur === 'function') {
+      element.blur();
+    }
+
+    if (typeof elementTextarea.blur === 'function') {
+      elementTextarea.blur();
+    }
+
     const nextNumber = +questionId + 1;
     const nextTarget = `questao${nextNumber}`;
 

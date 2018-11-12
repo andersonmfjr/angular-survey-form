@@ -48,7 +48,7 @@
 
     <div *ngSwitchCase="'textarea'">
       <textarea
-        (change)="qtQuestions()"
+        (change)="qtQuestions(); hideVirtualKeyboard()"
         rows="8"
         cols="50"
         [formControlName]="question.key"
