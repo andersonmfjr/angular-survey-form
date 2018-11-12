@@ -31,33 +31,25 @@ export class DynamicFormQuestionComponent {
   }
 
   hideVirtualKeyboard() {
-    const element = document.activeElement as HTMLInputElement;
-    const elementTextarea = document.activeElement as HTMLTextAreaElement;
+    return new Promise(resolve => {
+      const element = document.activeElement as HTMLInputElement;
 
-    if (typeof element.blur === 'function') {
-      element.blur();
-    }
-
-    if (typeof elementTextarea.blur === 'function') {
-      elementTextarea.blur();
-    }
+      if (typeof element.blur === 'function') {
+        element.blur();
+        resolve('Keyboard ocultado');
+      } else {
+        resolve('Nao tinha keyboard para ocultar');
+      }
+    });
   }
 
   qtQuestions() {
     this.formValues.emit(this.form.value);
   }
 
-  public scrollTo(questionId) {
-    const element = document.activeElement as HTMLInputElement;
-    const elementTextarea = document.activeElement as HTMLTextAreaElement;
-
-    if (typeof element.blur === 'function') {
-      element.blur();
-    }
-
-    if (typeof elementTextarea.blur === 'function') {
-      elementTextarea.blur();
-    }
+  async scrollTo(questionId) {
+    await this.hideVirtualKeyboard();
+    console.log('Await terminado');
 
     const nextNumber = +questionId + 1;
     const nextTarget = `questao${nextNumber}`;
@@ -71,6 +63,7 @@ export class DynamicFormQuestionComponent {
 
     if (nextNumber <= this.lenOfQuestions) {
       this._scrollToService.scrollTo(config);
+      console.log('Função de animação');
     }
   }
 }
