@@ -8,10 +8,10 @@ app-dynamic-form {
     max-width: 45rem;
     font-size: 1rem;
     line-height: 2rem;
-    margin-top: 12rem;
+    margin-top: 6rem;
 
     .form-group {
-      margin-bottom: 2rem;
+      margin-bottom: 3.5rem;
     }
   }
 
@@ -55,12 +55,16 @@ app-dynamic-form {
     }
   }
 
-  .separator {
-    content: ' ';
-    border-top: 1px solid $border-color;
-    width: 15rem;
-    display: block;
-    margin: 0 auto 18.5px auto;
+  .required-group {
+    margin-top: 4rem;
+    margin-left: 1rem;
+    font-size: 1rem;
+    line-height: 2rem;
+    color: $green;
+
+    .required {
+      color: #fd6565;
+    }
   }
 
   footer {
@@ -81,8 +85,11 @@ app-dynamic-form {
   }
 
   @media only screen and (max-width: 600px) {
+    .required {
+      margin-top: 2rem;
+    }
     form {
-      margin-top: 5rem;
+      margin-top: 3rem;
     }
   }
 }

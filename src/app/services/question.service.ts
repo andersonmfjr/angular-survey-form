@@ -237,7 +237,7 @@ export class QuestionService {
     for (const [key, val] of Object.entries(questionsAnswers)) {
       if (isNaN(+key) === false) {
         questionsId.push(+key);
-        replies.push(val.toString());
+        replies.push(val ? val.toString() : '');
       }
     }
 

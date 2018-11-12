@@ -50,7 +50,7 @@ export class DynamicFormQuestionComponent {
       duration: 650,
       target: nextTarget,
       easing: 'easeOutQuad',
-      offset: -130
+      offset: -150
     };
 
     if (nextNumber <= this.lenOfQuestions) {

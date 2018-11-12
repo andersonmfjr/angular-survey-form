@@ -3,7 +3,11 @@
   [id]="'questao' + question.order"
   class="question-container"
 >
-  <h3 [attr.for]="question.key">{{ question.order }}. {{ question.label }}</h3>
+  <h3 [attr.for]="question.key">
+    {{ question.order }}.
+    <span class="required" *ngIf="question.required">*</span>
+    {{ question.label }}
+  </h3>
 
   <div [ngSwitch]="question.controlType">
     <div class="alternatives" *ngSwitchCase="'radio'">
@@ -55,7 +59,7 @@
         type="button"
         (click)="scrollTo(question.order)"
       >
-        Ok
+        Próxima questão
       </button>
     </div>
 
@@ -63,13 +67,12 @@
       <ng-select
         [clearable]="false"
         clearOnBackspace="false"
-        (change)="
-          hideVirtualKeyboard(); qtQuestions(); scrollTo(question.order)
-        "
+        (change)="hideVirtualKeyboard(); qtQuestions()"
         class="custom"
         [searchable]="true"
         [id]="question.key"
         [formControlName]="question.key"
+        placeholder="Digite para filtrar"
       >
         <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
           <div class="ng-option disabled">
@@ -80,6 +83,14 @@
           opt.name
         }}</ng-option>
       </ng-select>
+
+      <button
+        *ngIf="question.order !== lenOfQuestions"
+        type="button"
+        (click)="scrollTo(question.order)"
+      >
+        Próxima questão
+      </button>
     </div>
   </div>
 

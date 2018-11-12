@@ -1,8 +1,13 @@
 <div>
+  <div class="required-group">
+    <h4><span class="required">*</span> Perguntas obrigatórias</h4>
+  </div>
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div *ngFor="let group of groups">
       <div>
-        <h3 class="form-group" *ngIf="group.name">{{ group.name }}:</h3>
+        <h2 class="form-group" *ngIf="group.name">
+          Perguntas relacionadas a {{ group.name | lowercase }}:
+        </h2>
         <div *ngFor="let question of group.questions">
           <app-question
             [question]="question"
@@ -18,7 +23,7 @@
     <div class="form-submit">
       <div *ngIf="!loading; else: loader">
         <p *ngIf="!form.valid">
-          Você precisa responder todas as perguntas fechadas para liberar o
+          Você precisa responder todas as perguntas obrigatórias para liberar o
           envio
         </p>
 

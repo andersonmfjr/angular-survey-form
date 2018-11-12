@@ -6,6 +6,10 @@ app-question {
     flex-wrap: wrap;
   }
 
+  .required {
+    color: #fd6565;
+  }
+
   .inputGroup {
     background-color: #fff;
     position: relative;
@@ -72,12 +76,17 @@ app-question {
   // Estilo para questões do tipo select
   .ng-select.custom {
     .ng-select-container {
+      margin-bottom: 1rem;
       color: black;
       height: 2rem;
       background-color: white;
       border: 1px solid $border-color;
       .ng-value-container {
         color: black;
+
+        .ng-placeholder {
+          color: black;
+        }
       }
     }
   }
