@@ -38,7 +38,7 @@ export class DynamicFormQuestionComponent {
         element.blur();
         resolve('Keyboard ocultado');
       } else {
-        resolve('Nao tinha keyboard para ocultar');
+        resolve('');
       }
     });
   }
@@ -49,6 +49,9 @@ export class DynamicFormQuestionComponent {
 
   async scrollTo(questionId) {
     const result = await this.hideVirtualKeyboard();
+    const nextN = +questionId + 1;
+    const nextT = `questao${nextN}`;
+    alert(nextT);
 
     if (result) {
       setInterval(() => {
@@ -64,9 +67,22 @@ export class DynamicFormQuestionComponent {
 
         if (nextNumber <= this.lenOfQuestions) {
           this._scrollToService.scrollTo(config);
-          console.log('Função de animação');
         }
-      }, 1500);
+      }, 500);
+    } else {
+      const nextNumber = +questionId + 1;
+      const nextTarget = `questao${nextNumber}`;
+
+      const config: ScrollToConfigOptions = {
+        duration: 650,
+        target: nextTarget,
+        easing: 'easeOutQuad',
+        offset: -150
+      };
+
+      if (nextNumber <= this.lenOfQuestions) {
+        this._scrollToService.scrollTo(config);
+      }
     }
   }
 }
