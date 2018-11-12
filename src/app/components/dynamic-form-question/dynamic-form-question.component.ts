@@ -33,12 +33,18 @@ export class DynamicFormQuestionComponent {
   hideVirtualKeyboard() {
     return new Promise(resolve => {
       const element = document.activeElement as HTMLInputElement;
+      const elementTextarea = document.activeElement as HTMLTextAreaElement;
 
       if (typeof element.blur === 'function') {
-        element.blur();
-        resolve('Keyboard ocultado');
+        resolve('Keyboard ocultado com input');
       } else {
-        resolve('');
+        resolve(false);
+      }
+
+      if (typeof elementTextarea.blur === 'function') {
+        resolve('Keyboard ocultado com textarea');
+      } else {
+        resolve(false);
       }
     });
   }
@@ -53,7 +59,7 @@ export class DynamicFormQuestionComponent {
     if (result) {
       setTimeout(() => {
         this.goToNextElement(questionId);
-      }, 500);
+      }, 300);
     } else {
       this.goToNextElement(questionId);
     }

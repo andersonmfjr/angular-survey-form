@@ -109,7 +109,7 @@ app-question {
 
   // Estilos gerais
   .question-container {
-    height: 50vh;
+    height: 60vh;
     h3 {
       color: $green;
     }
@@ -126,6 +126,7 @@ app-question {
     border-radius: $border-radius;
     font-size: 1rem;
     opacity: 0.9;
+    margin-bottom: 1rem;
 
     &:hover {
       opacity: 1;
@@ -136,7 +137,7 @@ app-question {
 
   @media only screen and (max-width: 768px) {
     .question-container {
-      height: 100vh;
+      height: 90vh;
     }
 
     .inputGroup {
