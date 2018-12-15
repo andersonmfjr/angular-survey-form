@@ -1,16 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300');
-$green: #51c341;
-$gray: #333e48;
-$border-color: #adadad;
-$border-radius: 0.4rem;
-
 @import '~@ng-select/ng-select/themes/default.theme.css';
-@import 'app/app.component';
-@import 'app/pages/hints/hints.component';
-@import 'app/pages/thanks/thanks.component';
-@import 'app/components/loader/loader.component';
-@import 'app/components/dynamic-form/dynamic-form.component';
-@import 'app/components/dynamic-form-question/dynamic-form-question.component';
 
 body {
   background-color: #fff;
@@ -27,4 +16,10 @@ body {
 
 html {
   box-sizing: border-box;
+}
+
+app-dynamic-form,
+app-error404 {
+  display: flex;
+  justify-content: center;
 }

@@ -1,152 +1,152 @@
-app-question {
-  // Estilos para as questões do tipo radio
-  .alternatives {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+@import '../../../variables.scss';
 
-  .required {
-    color: #fd6565;
-  }
+// Estilos para as questões do tipo radio
+.alternatives {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
-  .inputGroup {
-    background-color: #fff;
+.required {
+  color: #fd6565;
+}
+
+.inputGroup {
+  background-color: #fff;
+  position: relative;
+
+  label {
+    padding: 5px 70px;
+    width: 100%;
+    display: block;
+    text-align: left;
+    color: $gray;
+    cursor: pointer;
     position: relative;
+    z-index: 2;
+    transition: color 200ms ease-in;
+    overflow: hidden;
 
-    label {
-      padding: 5px 70px;
-      width: 100%;
-      display: block;
-      text-align: left;
-      color: $gray;
-      cursor: pointer;
-      position: relative;
-      z-index: 2;
-      transition: color 200ms ease-in;
-      overflow: hidden;
-
-      &:after {
-        width: 1.5rem;
-        height: 1.5rem;
-        content: '';
-        border: 2px solid #d1d7dc;
-        background-color: #fff;
-        background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
-        background-repeat: no-repeat;
-        background-position: -0.15rem -0.05rem;
-        border-radius: 50%;
-        z-index: 2;
-        position: absolute;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-        transition: all 200ms ease-in;
-      }
-
-      &:hover {
-        background-color: $green;
-        border-radius: $border-radius;
-      }
-    }
-
-    input:checked ~ label {
-      &:after {
-        background-color: $green;
-        border-color: $green;
-      }
-    }
-
-    input {
-      width: 32px;
-      height: 32px;
-      order: 1;
+    &:after {
+      width: 1.5rem;
+      height: 1.5rem;
+      content: '';
+      border: 2px solid #d1d7dc;
+      background-color: #fff;
+      background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+      background-repeat: no-repeat;
+      background-position: -0.15rem -0.05rem;
+      border-radius: 50%;
       z-index: 2;
       position: absolute;
-      right: 30px;
+      left: 20px;
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-      visibility: hidden;
+      transition: all 200ms ease-in;
+    }
+
+    &:hover {
+      background-color: $green;
+      border-radius: $border-radius;
     }
   }
-  // Fim do estilo para as questões do tipo radio
 
-  // Estilo para questões do tipo select
-  .ng-select.custom {
-    .ng-select-container {
-      margin-bottom: 1rem;
+  input:checked ~ label {
+    &:after {
+      background-color: $green;
+      border-color: $green;
+    }
+  }
+
+  input {
+    width: 32px;
+    height: 32px;
+    order: 1;
+    z-index: 2;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    visibility: hidden;
+  }
+}
+// Fim do estilo para as questões do tipo radio
+
+// Estilo para questões do tipo select
+.ng-select.custom {
+  .ng-select-container {
+    margin-bottom: 1rem;
+    color: black;
+    height: 2rem;
+    background-color: white;
+    border: 1px solid $border-color;
+    .ng-value-container {
       color: black;
-      height: 2rem;
-      background-color: white;
-      border: 1px solid $border-color;
-      .ng-value-container {
-        color: black;
 
-        .ng-placeholder {
-          color: black;
-        }
+      .ng-placeholder {
+        color: black;
       }
     }
   }
-  // Fim do estilo para as questõs do tipo select
+}
+// Fim do estilo para as questõs do tipo select
 
-  // Estilo para questões do tipo textarea
-  textarea {
-    border-color: $border-color;
-    border-radius: $border-radius;
-    background-color: white;
-    color: black;
-    width: 100%;
-    padding: 0.5rem;
+// Estilo para questões do tipo textarea
+textarea {
+  border-color: $border-color;
+  border-radius: $border-radius;
+  background-color: white;
+  color: black;
+  width: 100%;
+  padding: 0.5rem;
 
-    &:focus {
-      outline-color: transparent;
-    }
+  &:focus {
+    outline-color: transparent;
   }
-  // Fim do estilo para questões do tipo textarea
+}
+// Fim do estilo para questões do tipo textarea
 
-  // Estilos gerais
+// Estilos gerais
+.question-container {
+  height: 60vh;
+  h3 {
+    color: $green;
+  }
+}
+
+button {
+  height: 100%;
+  min-width: 5rem;
+  float: right;
+  color: white;
+  padding: 0.5rem 1rem;
+  background-color: $green;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: $border-radius;
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  &:hover {
+    opacity: 1;
+    box-shadow: 0 0 10px #2683cc;
+  }
+}
+// Fim estilos gerais
+
+@media only screen and (max-width: 768px) {
   .question-container {
-    height: 60vh;
-    h3 {
-      color: $green;
-    }
+    height: 90vh;
   }
 
-  button {
-    height: 100%;
-    min-width: 5rem;
-    float: right;
-    color: white;
-    padding: 0.5rem 1rem;
-    background-color: $green;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: $border-radius;
-    font-size: 1rem;
-    opacity: 0.9;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-
-    &:hover {
-      opacity: 1;
-      box-shadow: 0 0 10px #2683cc;
-    }
+  .inputGroup {
+    font-size: 0.9rem;
   }
-  // Fim estilos gerais
 
-  @media only screen and (max-width: 768px) {
-    .question-container {
-      height: 90vh;
-    }
-
-    .inputGroup {
-      font-size: 0.9rem;
-    }
-
-    h3 {
-      font-size: 0.9rem;
-    }
+  h3 {
+    font-size: 0.9rem;
   }
 }

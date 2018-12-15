@@ -14,10 +14,11 @@ import { AppComponent } from './app.component';
 
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { DynamicFormQuestionComponent } from './components/dynamic-form-question/dynamic-form-question.component';
-import { SurveyComponent } from './pages/survey/survey.component';
-import { HintsComponent } from './pages/hints/hints.component';
-import { ThanksComponent } from './pages/thanks/thanks.component';
+import { SurveyComponent } from './views/survey/survey.component';
+import { HintsComponent } from './views/hints/hints.component';
+import { ThanksComponent } from './views/thanks/thanks.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { Error404Component } from './views/error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     SurveyComponent,
     HintsComponent,
     ThanksComponent,
-    LoaderComponent
+    LoaderComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,9 @@ import { LoaderComponent } from './components/loader/loader.component';
 export class AppModule {
   constructor(apollo: Apollo, httpLink: HttpLink) {
     apollo.create({
-      link: httpLink.create({ uri: 'https://api-survey-ifal.herokuapp.com/graphql' }),
+      link: httpLink.create({
+        uri: 'https://api-survey-ifal.herokuapp.com/graphql'
+      }),
       cache: new InMemoryCache()
     });
   }
