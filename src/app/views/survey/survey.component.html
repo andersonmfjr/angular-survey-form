@@ -1,7 +1,16 @@
-<div>
+<div *ngIf="!showError; else: error">
+  <!-- <div> -->
   <app-dynamic-form
     *ngIf="groups; else: loader"
     [groups]="groups"
   ></app-dynamic-form>
   <ng-template #loader><app-loader [margin]="'8rem'"></app-loader></ng-template>
 </div>
+
+<ng-template #error>
+  <div class="error">
+    <div>Aconteceu algum erro.</div>
+    <div>Sentimos muito pelo transtorno.</div>
+    <div>Tente novamente mais tarde.</div>
+  </div>
+</ng-template>

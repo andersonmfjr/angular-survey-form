@@ -5,10 +5,11 @@ import { QuestionBase } from '../models/question-base';
 import { TextareaQuestion } from '../models/question-textarea';
 import { RadioQuestion } from '../models/question-radio';
 
-import { QGL_GET_ALL_DATA, MUTATE_REPLIES } from '../utils/queries.js';
+import { QGL_GET_ALL_DATA, MUTATE_REPLIES } from '../utils/queries';
 
 import { Apollo } from 'apollo-angular';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class QuestionService {
@@ -20,31 +21,40 @@ export class QuestionService {
   getDataFromGraphQl() {
     const data = this._apollo
       .watchQuery({
-        query: QGL_GET_ALL_DATA
+        query: QGL_GET_ALL_DATA,
+        errorPolicy: 'all'
       })
-      .valueChanges.pipe(map(result => result.data));
-
+      .valueChanges.pipe(
+        map(result => result.data),
+        catchError(err => {
+          // console.log('caught mapping error and rethrowing', err);
+          return throwError(err);
+        })
+      );
     return data;
   }
 
   formatAllData() {
-    return new Promise(resolve => {
-      this.getDataFromGraphQl().subscribe(data => {
-        const formatedData = {};
-        const questions = this.formatQuestions(data);
-        const schoolSubjects = this.formatSchoolSubjects(data);
-        const teachers = this.formatTeachers(data);
-        const courses = this.formatCourses(data);
-        const categories = this.formatCategories(data);
+    return new Promise((resolve, reject) => {
+      this.getDataFromGraphQl().subscribe(
+        data => {
+          const formatedData = {};
+          const questions = this.formatQuestions(data);
+          const schoolSubjects = this.formatSchoolSubjects(data);
+          const teachers = this.formatTeachers(data);
+          const courses = this.formatCourses(data);
+          const categories = this.formatCategories(data);
 
-        formatedData['questions'] = questions;
-        formatedData['schoolSubjects'] = schoolSubjects;
-        formatedData['teachers'] = teachers;
-        formatedData['courses'] = courses;
-        formatedData['categories'] = categories;
+          formatedData['questions'] = questions;
+          formatedData['schoolSubjects'] = schoolSubjects;
+          formatedData['teachers'] = teachers;
+          formatedData['courses'] = courses;
+          formatedData['categories'] = categories;
 
-        resolve(formatedData);
-      });
+          resolve(formatedData);
+        },
+        err => reject(err)
+      );
     });
   }
 
