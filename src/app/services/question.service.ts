@@ -16,7 +16,7 @@ export class QuestionService {
   constructor(private _apollo: Apollo) {}
 
   CATEGORY_ID_FIXED_QUESTIONS = 0;
-  QT_OF_FIXED_QUESTIONS = 3;
+  QT_OF_FIXED_QUESTIONS = 2;
 
   getDataFromGraphQl() {
     const data = this._apollo
@@ -27,7 +27,6 @@ export class QuestionService {
       .valueChanges.pipe(
         map(result => result.data),
         catchError(err => {
-          // console.log('caught mapping error and rethrowing', err);
           return throwError(err);
         })
       );
@@ -41,13 +40,11 @@ export class QuestionService {
           const formatedData = {};
           const questions = this.formatQuestions(data);
           const schoolSubjects = this.formatSchoolSubjects(data);
-          const teachers = this.formatTeachers(data);
           const courses = this.formatCourses(data);
           const categories = this.formatCategories(data);
 
           formatedData['questions'] = questions;
           formatedData['schoolSubjects'] = schoolSubjects;
-          formatedData['teachers'] = teachers;
           formatedData['courses'] = courses;
           formatedData['categories'] = categories;
 
@@ -93,19 +90,6 @@ export class QuestionService {
     });
 
     return courses;
-  }
-
-  formatTeachers(data) {
-    const teachers = [];
-
-    data.allTeacher.edges.forEach(el => {
-      teachers.push({
-        key: el.node.teacherId,
-        name: el.node.name
-      });
-    });
-
-    return teachers;
   }
 
   formatSchoolSubjects(data) {
@@ -208,15 +192,6 @@ export class QuestionService {
         required: true,
         options: allFormatedData['schoolSubjects'],
         order: 2
-      }),
-      new DropdownQuestion({
-        key: 'teacher',
-        label: 'Selecione o professor:',
-        value: '',
-        category: +this.CATEGORY_ID_FIXED_QUESTIONS,
-        required: true,
-        options: allFormatedData['teachers'],
-        order: 3
       })
     ];
 
@@ -237,7 +212,6 @@ export class QuestionService {
 
   async formatDataToMutation(questionsAnswers) {
     // teacherId: 1, schoolSubjectId: 1, questionsId: [1,2], replies: ["txt", "1"]
-    const teacherId = +questionsAnswers['teacher'];
     const schoolSubjectId = +questionsAnswers['schoolSubject'];
     const courseId = +questionsAnswers['course'];
 
@@ -252,7 +226,6 @@ export class QuestionService {
     }
 
     const result = await this.mutationData(
-      teacherId,
       schoolSubjectId,
       courseId,
       questionsId,
@@ -262,13 +235,12 @@ export class QuestionService {
     return result;
   }
 
-  mutationData(teacher, schoolSubject, course, questions, replies) {
+  mutationData(schoolSubject, course, questions, replies) {
     return new Promise(resolve => {
       this._apollo
         .mutate({
           mutation: MUTATE_REPLIES,
           variables: {
-            teacherId: teacher,
             schoolSubjectId: schoolSubject,
             courseId: course,
             questionsId: questions,

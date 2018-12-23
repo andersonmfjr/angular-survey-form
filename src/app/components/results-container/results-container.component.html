@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="selectSchoolSubject">
+    <ng-select
+      [items]="schoolSubjects"
+      [clearable]="false"
+      clearOnBackspace="false"
+      class="custom"
+      [searchable]="true"
+      autofocus
+      bindLabel="name"
+      bindValue="id"
+      placeholder="Digite para filtrar"
+      [(ngModel)]="selectedSchoolSubject"
+    >
+      <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
+        <div class="ng-option disabled">
+          Sem itens para sua busca, por favor tente outros termos
+        </div>
+      </ng-template>
+    </ng-select>
+  </div>
+  <div *ngFor="let graph of graphs">
+    <app-results-questions [data]="graph"></app-results-questions>
+  </div>
+</div>

@@ -21,9 +21,7 @@ export class SurveyComponent implements OnInit {
       this.groups = await this._service.getQuestions();
     } catch (e) {
       this.showError = true;
-      // console.log(e);
     }
-    // this.groups = await this._service.getQuestions();
   }
 
   ngOnInit() {

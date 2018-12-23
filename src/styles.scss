@@ -19,7 +19,8 @@ html {
 }
 
 app-dynamic-form,
-app-error404 {
+app-error404,
+app-results-container {
   display: flex;
   justify-content: center;
 }

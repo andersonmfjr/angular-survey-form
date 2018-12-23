@@ -34,14 +34,6 @@ export const QGL_GET_ALL_DATA = gql`
         }
       }
     }
-    allTeacher {
-      edges {
-        node {
-          teacherId
-          name
-        }
-      }
-    }
     allCourse {
       edges {
         node {
@@ -64,14 +56,12 @@ export const QGL_GET_ALL_DATA = gql`
 
 export const MUTATE_REPLIES = gql`
   mutation replyAnswerText(
-    $teacherId: Int!
     $schoolSubjectId: Int!
     $courseId: Int!
     $questionsId: [Int]!
     $replies: [String]!
   ) {
     replyAnswerText(
-      teacherId: $teacherId
       schoolSubjectId: $schoolSubjectId
       courseId: $courseId
       questionsId: $questionsId
