@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-results',
@@ -79,7 +80,9 @@ export class ResultsComponent implements OnInit {
     }
   ];
 
-  constructor() {}
+  constructor(private _title: Title) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._title.setTitle('Resultados - Avaliação de curso');
+  }
 }
