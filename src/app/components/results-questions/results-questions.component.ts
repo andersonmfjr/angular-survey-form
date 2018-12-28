@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ResultsQuestionsComponent implements OnInit {
   @Input()
-  data = Object;
+  data: any;
 
   view: any[] = [700, 400];
   showXAxis = true;
